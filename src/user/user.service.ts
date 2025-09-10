@@ -5,8 +5,15 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UserService {
     constructor( private prisma: PrismaService ) {}
 
-    async getProfile(){
+    async getProfile(userId: number){
+return this.prisma.user.findUnique ({
+    where: { id:userId },
+    select: {
+name:true,
+username: true,
+email:true,
 
+    }})
     }
 
     async updateProfile(){

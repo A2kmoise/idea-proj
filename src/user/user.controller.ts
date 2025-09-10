@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Param, ParseIntPipe, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -6,9 +6,9 @@ export class UserController {
     constructor(private userService: UserService) {}
 
 
-    @Get('profile')
-    getProfile(){
-        return this.userService.getProfile();
+    @Get(':userId/profile')
+    getProfile(@Param('userId',ParseIntPipe) userId:number) {
+        return this.userService.getProfile(userId);
     }
 
     @Put('profile')

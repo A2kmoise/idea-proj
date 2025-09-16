@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Put } from '@nestjs/common';
+import { Body, Controller, Delete, ForbiddenException, Get, Param, ParseIntPipe, Put, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { profileUpdateDto } from './dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -16,9 +17,14 @@ export class UserController {
     return this.userService.updateProfile(userId, newData);
   }
 
-  @Put('change-password')
-  changePassword() {
-    return this.userService.changePassword();
+  @UseGuards(JwtAuthGuard)
+  @Put(':userId/change-password')
+  changePassword(@Param('userId', ParseIntPipe) userId: number, @Body() body: {oldPassword: string; newPassword: string }, @Req() req:any ) {
+
+    if (req.user.id !== userId ){
+throw new ForbiddenException("You have no access here");
+    }
+    return this.userService.changePassword(userId, body.oldPassword, body.newPassword);
   }
 
   @Delete('delete-account')

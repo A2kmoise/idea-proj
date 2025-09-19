@@ -82,10 +82,13 @@ export class AuthService {
       where: { email }
     });
 
-    if (user && await bcrypt.compare(password, user.password)) {
+    if (user){
+const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch){
       const { password: _, ...result } = user;
       return result;
     }
+  }
     return null;
   }
 

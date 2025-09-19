@@ -1,7 +1,6 @@
 import { Body, Controller, Post, UseGuards, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto, SigninDto } from './dto';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CurrentUser } from './decorator/current-user.decorator';
 
@@ -14,7 +13,6 @@ export class AuthController {
         return this.authService.signup(dto);
     }
 
-    @UseGuards(LocalAuthGuard)
     @Post('signin')
     async signin(@Body() dto: SigninDto) {
         return this.authService.signin(dto);

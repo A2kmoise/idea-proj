@@ -1,9 +1,9 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { profileUpdateDto } from './dto';
-import { error } from 'console';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
+import { error } from 'console';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) { }

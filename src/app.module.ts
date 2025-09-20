@@ -8,6 +8,7 @@ import configuration from './config/configuration';
 import { UserModule } from './user/user.module';
 import { ProductsModule } from './products/products.module';
 import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OrderModule } from './order/order.module';
     UserModule,
     ProductsModule,
     OrderModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
